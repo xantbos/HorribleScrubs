@@ -51,38 +51,40 @@ class HorribleScrubs:
         self.bot = bot
         self.folderDir = "files\\optin\\"
         self.fileName = "optin"
-        self._checkinterval = 3
+        self._checkinterval = 10
         self._sourcemagnethost = ""
         self._DEFVALS = ["480", "720", "1080"]
-        self._480root = 'http://horriblesubs.info/rss.php?res=sd'
         self._KNOWN480LIST = []
-        self._720root = 'http://horriblesubs.info/rss.php?res=720'
         self._KNOWN720LIST = []
-        self._1080root = 'http://horriblesubs.info/rss.php?res=1080'
         self._KNOWN1080LIST = []
-        self._ROOTLIST = []
-        self._KNOWNLISTS = []
+        self._ROOTLIST = ['http://horriblesubs.info/rss.php?res=sd', 'http://horriblesubs.info/rss.php?res=720', 'http://horriblesubs.info/rss.php?res=1080']
+        self._KNOWNLISTS = [self._KNOWN480LIST, self._KNOWN720LIST, self._KNOWN1080LIST]
         self.bot_init()
 
     @commands.check(is_owner)
     @commands.command(name="debugscrubber", pass_context=True, hidden=True)	
     async def bot_scrubber_debug(self, ctx):
-        # fires off a debug embed test, change the index to change the resolution (0-3)
-        index = 0
-        vals = self.bot_scrubber_checks_for_content(self._ROOTLIST[index])
-        em = self.generate_embed_from_package(vals[0].splitlines(), self._DEFVALS[index])
-        await self.bot.say(embed=em)
+        streamtype=1
+        uValues = returnJsonUnicode(self.folderDir, self.fileName)
+        newNews = self.bot_scrubber_checks_for_content(self._ROOTLIST[streamtype])
+        newNews = newNews[:1]
+        for channel in uValues[self._DEFVALS[streamtype]]["channelID"]:
+            thisChannel = discord.Object(id=channel)
+            for i in newNews:
+                links = i.splitlines()
+                em = self.generate_embed_from_package(links, "New {}p Stream".format(self._DEFVALS[streamtype]))
+                try:
+                    await self.bot.send_message(thisChannel, embed=em)
+                except:
+                    pass
+        self.first_run_to_fill_lists(streamtype)
+        pass
 		
     def bot_init(self):
         # init that is called during the core __init__ for clarity purposes
         self.bot_horriblescrubber_creates_structured_json(self.fileName)
-        self.refresh_list_of_roots()
-        self.refresh_list_of_lists()
-        flag = [self.first_run_to_fill_lists(i) for i in range(3)]
-        self.refresh_list_of_lists()
-        asyncio.ensure_future(self.timer_for_update_check(0))
-        asyncio.ensure_future(self.timer_for_update_check(1))
-        asyncio.ensure_future(self.timer_for_update_check(2))
+        [self.first_run_to_fill_lists(i) for i in range(3)]
+        [asyncio.ensure_future(self.timer_for_update_check(i)) for i in range(3)]
 		
 # Interaction functions
 #----------------------------------------------------
@@ -119,21 +121,6 @@ class HorribleScrubs:
     def first_run_to_fill_lists(self, rootid):
         self._KNOWNLISTS[rootid] = list(self.bot_scrubber_checks_for_content(self._ROOTLIST[rootid]))
 
-# Rebuilds our class lists
-#----------------------------------------------------
-
-    def refresh_list_of_lists(self):
-        self._KNOWNLISTS = []
-        self._KNOWNLISTS.append(self._KNOWN480LIST)
-        self._KNOWNLISTS.append(self._KNOWN720LIST)
-        self._KNOWNLISTS.append(self._KNOWN1080LIST)
-		
-    def refresh_list_of_roots(self):
-        self._ROOTLIST = []
-        self._ROOTLIST.append(self._480root)
-        self._ROOTLIST.append(self._720root)
-        self._ROOTLIST.append(self._1080root)
-
 # Update calls
 #----------------------------------------------------
 	
@@ -161,8 +148,8 @@ class HorribleScrubs:
 	
     def generate_embed_from_package(self, pack, headertype):
         em = discord.Embed(title="Horribly Scrubbed", description="", colour=0x00AE86)
-        em.add_field(name="{}p Content".format(headertype), value="**Filename**\n{}\n\n**Date Published**\n{}".format(pack[0], pack[2]))
-        em.set_footer(text="Crunchyroll can eat shit")
+        em.add_field(name="{} Magnet".format(headertype), value="**Filename**\n{}\n\n**Date Published**\n{}".format(pack[0], pack[2]))
+        em.set_footer(text="Crunchyroll shouldn't forget its roots")
         thisURL = self.generate_html_get_for_magnet(pack[0], pack[1])
         if not thisURL == "":
             em.url = thisURL
@@ -223,7 +210,7 @@ class HorribleScrubs:
                     thisChannel = discord.Object(id=channel)
                     for i in newNews:
                         links = i.splitlines()
-                        em = self.generate_embed_from_package(links, "New {}p Stream".format(self._DEFVALS[streamtype]))
+                        em = self.generate_embed_from_package(links, "New {}p".format(self._DEFVALS[streamtype]))
                         try:
                             await self.bot.send_message(thisChannel, embed=em)
                         except:
