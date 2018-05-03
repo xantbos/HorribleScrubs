@@ -4,7 +4,7 @@ from discord.ext import commands
 from discord.ext.commands import Bot, when_mentioned_or
 from utils import setup_file, user_agent
 
-plugins = ["plugins.owner", "plugins.horriblescrubs"]
+plugins = ["plugins.horriblescrubs"]
 
 class MainBot(Bot):
 
