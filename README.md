@@ -1,5 +1,7 @@
 # HorribleScrubs
 
+-Developed in Py 3.5
+
 Scrapes horriblesubs' RSS feeds for new releases and then sends and embed response to the designated channels.
 Users may opt-in server or DM channels to recieve the notifications.
 
