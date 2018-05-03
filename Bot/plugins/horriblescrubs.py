@@ -41,15 +41,17 @@ class HorribleScrubs:
 
     def __init__(self, bot):
         # we declare most of our variables here, allowing easy modification later on
+		
+        # the _sourcemagnethost value requires backend that
+        # takes the magnetname and magnetlink arguments
+        # in GET, and decodes them for usage. It's for php.
+        # You can leave this empty if you're unable to 
+        # prepare a host for this functionality, it will be skipped.
+		
         self.bot = bot
         self.folderDir = "files\\optin\\"
         self.fileName = "optin"
         self._checkinterval = 3
-        # the source magnet host requires backend that
-        # takes the magnetname and magnetlink arguments
-        # in GET, and decodes them for usage.
-        # You can comment out the em.url in the generator
-        # if you're unable to prepare a host for this functionality
         self._sourcemagnethost = ""
         self._DEFVALS = ["480", "720", "1080"]
         self._480root = 'http://horriblesubs.info/rss.php?res=sd'
