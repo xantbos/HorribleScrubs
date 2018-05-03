@@ -11,7 +11,20 @@ It then sanitizes the data (GET isn't terribly secure) and then displays a click
 Since discord doesn't support magnet links any more, this was the way I decided to go about it.
 
 utils.filemg is included.
+
 utils.checks is included.
+
+Other requirements:
+
+* Dependencies
+
+Beautifulsoup 4
+
+* Required Folder Structures
+
+main.py
+  \files
+    \optin
 
 # Usage
 
