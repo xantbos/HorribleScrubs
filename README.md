@@ -14,17 +14,13 @@ utils.filemg is included.
 
 utils.checks is included.
 
-Other requirements:
+Folder structure for the optin files is shown in the skeleton, you can change it freely using the global vars in the horriblescrubs.py init.
 
-* Dependencies
+# Dependencies
 
-Beautifulsoup 4
+* Beautifulsoup 4
 
-* Required Folder Structures
-
-main.py
-  \files
-    \optin
+* Discord.py
 
 # Usage
 
