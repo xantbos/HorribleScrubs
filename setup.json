@@ -1,0 +1,8 @@
+{
+    "discord":{
+        "owner_id": "",
+        "command_prefix": "hs.",
+        "token": "",
+        "admins": [""]
+    }
+}
