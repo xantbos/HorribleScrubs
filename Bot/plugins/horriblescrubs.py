@@ -156,7 +156,7 @@ class HorribleScrubs:
         return em
 		
     def generate_html_get_for_magnet(self, magnetname, magnetlink):
-        if not _sourcemagnethost == "":
+        if not self._sourcemagnethost == "":
             return self._sourcemagnethost + urllib.parse.urlencode({'magnetname' : magnetname, 'magnetlink' : magnetlink})
         return ""
 
