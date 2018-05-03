@@ -223,7 +223,7 @@ class HorribleScrubs:
                     thisChannel = discord.Object(id=channel)
                     for i in newNews:
                         links = i.splitlines()
-                        em = generate_embed_from_package(links, "New {}p Stream".format(self._DEFVALS[streamtype]))
+                        em = self.generate_embed_from_package(links, "New {}p Stream".format(self._DEFVALS[streamtype]))
                         try:
                             await self.bot.send_message(thisChannel, embed=em)
                         except:
