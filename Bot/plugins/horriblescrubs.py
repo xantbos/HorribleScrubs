@@ -21,7 +21,7 @@ from utils.checks import (
 
 #@desc
 #  Scrapes horriblesubs' RSS feeds for new releases
-#  and then sends and embed response to the designated
+#  and then sends an embed response to the designated
 #  channels. Users may opt-in server or DM channels
 #  to recieve the notifications.
 
@@ -196,7 +196,7 @@ class HorribleScrubs:
     async def timer_for_update_check(self, streamtype):
         while not self.bot.is_logged_in:
             await asyncio.sleep(5)
-        preString = "Starting {}p Scrubber Timer...".format(self._DEFVALS[streamtype])
+        preString = "Starting {}p Feed Timer...".format(self._DEFVALS[streamtype])
         print("{:<35}".format(preString), end="")
         print("\tSuccess")
         self.first_run_to_fill_lists(streamtype)

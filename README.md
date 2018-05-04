@@ -2,7 +2,7 @@
 
 -Developed in Py 3.5
 
-Scrapes horriblesubs' RSS feeds for new releases and then sends and embed response to the designated channels.
+Scrapes horriblesubs' RSS feeds for new releases and then sends an embed response to the designated channels.
 Users may opt-in server or DM channels to recieve the notifications.
 
 The backend magnetlink provider is a self-hosted solution which handles the content as a GET response.
