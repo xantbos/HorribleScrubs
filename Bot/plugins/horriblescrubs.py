@@ -148,7 +148,7 @@ class HorribleScrubs:
 	
     def generate_embed_from_package(self, pack, headertype):
         em = discord.Embed(title="Horribly Scrubbed", description="", colour=0x00AE86)
-        em.add_field(name="{} Magnet".format(headertype), value="**Filename**\n{}\n\n**Date Published**\n{}".format(pack[0], pack[2]))
+        em.add_field(name="{} Magnet".format(headertype), value="**Filename**\n{}\n\n**Date Published**\n{} UTC".format(pack[0], pack[2]))
         em.set_footer(text="Crunchyroll shouldn't forget its roots")
         thisURL = self.generate_html_get_for_magnet(pack[0], pack[1])
         if not thisURL == "":
